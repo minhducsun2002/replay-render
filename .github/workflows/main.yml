@@ -34,6 +34,8 @@ jobs:
         run: |
           wget -q https://cdn.discordapp.com/attachments/876678911990308924/876679502405701722/Blueberry-v1.3.2-mod-normal-trails.osk -O /tmp/skin.zip;
           unzip /tmp/skin.zip -d ~/skin
+          wget -q https://cdn.discordapp.com/attachments/876678911990308924/876879456814399528/skin-default.zip -O /tmp/skin-default.zip
+          unzip /tmp/skin-default.zip -d ~/skin-default
       - name: Download replay
         run: |
           wget -q https://cdn.discordapp.com/attachments/876678911990308924/876678956529639454/Akane_Butterfly_-_Imperial_Circus_Dead_Decadence_-_Uta_Poetry_2021-06-02_Osu.osr -O ~/replay.osr
