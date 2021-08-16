@@ -1,26 +1,36 @@
-import os
-from osr2mp4.VideoProcess.DiskUtils import convert_tomp4
-import time
 from osr2mp4.osr2mp4 import Osr2mp4
 
+data = {
+   "osu! path": "/",
+   "Skin path": "/home/runner/skin",
+   "Beatmap path": "/home/runner/beatmap/",
+   ".osr path": "/home/runner/replay.osr",
+   "Default skin path": "/home/runner/skin-default",
+   "Output path": "/home/runner/output.avi",
+   "Width": 1920,
+   "Height": 1080,
+   "FPS": 60,
+   "Start time": 0,
+   "End time": -1,
+   "Video codec": "XVID",
+   "Process": 3,
+   "ffmpeg path": "/usr/bin/ffmpeg", "enablelog":False,
+"Show scoreboard": False
+ }
 
-def main():
-	# data = read("osr2mp4/config.json")
-
-	# gameplaydata = read("osr2mp4/settings.json")
-
-	osr2mp4 = Osr2mp4(filedata="../config.json",
-	                  filesettings="../settings.json",
-	                  logtofile=False)
-
-	osr2mp4.startall()
-	osr2mp4.joinall()
-
-	if os.name != 'nt':
-		convert_tomp4(osr2mp4.settings)
+settings = {
+"enablelog":False,
+"Show scoreboard":False, "Audio bitrate" : 128,
+"In-game interface":False,
+        "Global leaderboard": False,
+        "Song volume": 100,
+        "Effect volume": 100,
+        "Enable PP counter": False,
+        "Use FFmpeg video writer": True,
+        "api key": "",
+    }
 
 
-if __name__ == "__main__":
-	asdf = time.time()
-	main()
-	print("\nTotal time:", time.time() - asdf)
+converter = Osr2mp4(data, settings)
+converter.startall()
+converter.joinall()
