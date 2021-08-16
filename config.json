@@ -1,8 +1,8 @@
 
 {
-    "Skin path": "~/skin",
-    "Beatmap path": "~/beatmap",
-    ".osr path": "~/replay.osr",
+    "Skin path": "/home/runner/skin",
+    "Beatmap path": "/home/runner/beatmap",
+    ".osr path": "/home/runner/replay.osr",
     "Default skin path": "",
     "Output path": "~/output.mp4",
     "Width": 1920,
