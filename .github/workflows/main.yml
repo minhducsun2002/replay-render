@@ -52,6 +52,14 @@ jobs:
           cd osr2mp4-core;
           echo 4294967296 | sudo tee /proc/sys/fs/file-max
           git -c user.name=no -c user.email=no@no.com revert 963cf35775bd76b7f2ac323e021a2d1aa428b4cc --no-edit; cp ../*.py .; python main.py
+      - name: Upload video
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          # Artifact name
+          name: video.mp4 # optional, default is artifact
+          # A file, directory or wildcard pattern that describes what to upload
+          path: /home/runner/output.mp4
+          # The desired behavior if no files are found using the provided path.
           
         
           
