@@ -23,7 +23,7 @@ jobs:
         run: |
           sudo apt-get -qq -o=Dpkg::Use-Pty=0 -y update;
           sudo apt-get -qq -o=Dpkg::Use-Pty=0 -y install ffmpeg libavcodec-dev libavutil-dev libavformat-dev libswresample-dev libswscale-dev;
-          cd osr2mp4-core; cd osr2mp4/; python install.py; pip install Pillow-SIMD cython osr2mp4;
+          cd osr2mp4-core; cd osr2mp4/; python install.py; pip install Pillow-SIMD cython;
       - name: Prepare ImageProcess
         run: cd osr2mp4-core; cd osr2mp4/ImageProcess/Curves/libcurves/; python setup.py build_ext --inplace;
       - name: Prepare VideoProcess
@@ -36,7 +36,7 @@ jobs:
         run: |
           wget -q https://cdn.discordapp.com/attachments/876678911990308924/876678956529639454/Akane_Butterfly_-_Imperial_Circus_Dead_Decadence_-_Uta_Poetry_2021-06-02_Osu.osr -O ~/replay.osr
       - name: Render
-        run: python main.py
+        run: cd osr2mp4-core; python ../main.py
           
         
           
