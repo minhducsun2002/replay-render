@@ -9,8 +9,8 @@ def main():
 
 	# gameplaydata = read("osr2mp4/settings.json")
 
-	osr2mp4 = Osr2mp4(filedata="config.json",
-	                  filesettings="settings.json",
+	osr2mp4 = Osr2mp4(filedata="../config.json",
+	                  filesettings="../settings.json",
 	                  logtofile=False)
 
 	osr2mp4.startall()
