@@ -6,14 +6,14 @@ data = {
    "Beatmap path": "/home/runner/beatmap/",
    ".osr path": "/home/runner/replay.osr",
    "Default skin path": "/home/runner/skin-default",
-   "Output path": "/home/runner/output.avi",
+   "Output path": "/home/runner/output.mp4",
    "Width": 1920,
    "Height": 1080,
    "FPS": 60,
    "Start time": 0,
    "End time": -1,
-   "Video codec": "XVID",
-   "Process": 3,
+   "Video codec": "x264",
+   "Process": 6,
    "ffmpeg path": "/usr/bin/ffmpeg", "enablelog":False,
 "Show scoreboard": False
  }
@@ -21,7 +21,7 @@ data = {
 settings = {
 "enablelog":False,
 "Show scoreboard":False, "Audio bitrate" : 128,
-"In-game interface":False,
+"In-game interface":True,
         "Global leaderboard": False,
         "Song volume": 100,
         "Effect volume": 100,
