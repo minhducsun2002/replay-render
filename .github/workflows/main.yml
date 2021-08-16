@@ -39,7 +39,7 @@ jobs:
           wget -q https://cdn.discordapp.com/attachments/876678911990308924/876678956529639454/Akane_Butterfly_-_Imperial_Circus_Dead_Decadence_-_Uta_Poetry_2021-06-02_Osu.osr -O ~/replay.osr
       - name: Render
         run: |
-          $GITHUB_WORKSPACE/replay-meta-list/target/release/replay-meta-list ~/replay.osr | jq .beatmap_hash
+          $GITHUB_WORKSPACE/replay-meta-list/targets/release/replay-meta-list ~/replay.osr | jq .beatmap_hash
           cd osr2mp4-core;
           git -c user.name=no -c user.email=no@no.com revert 963cf35775bd76b7f2ac323e021a2d1aa428b4cc --no-edit; cp ../*.py .; python main.py
           
