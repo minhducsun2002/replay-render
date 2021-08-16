@@ -50,6 +50,7 @@ jobs:
       - name: Render
         run: |
           cd osr2mp4-core;
+          echo 4294967296 | sudo tee /proc/sys/fs/file-max
           git -c user.name=no -c user.email=no@no.com revert 963cf35775bd76b7f2ac323e021a2d1aa428b4cc --no-edit; cp ../*.py .; python main.py
           
         
