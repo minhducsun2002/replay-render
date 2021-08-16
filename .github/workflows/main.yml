@@ -37,14 +37,16 @@ jobs:
       - name: Download replay
         run: |
           wget -q https://cdn.discordapp.com/attachments/876678911990308924/876678956529639454/Akane_Butterfly_-_Imperial_Circus_Dead_Decadence_-_Uta_Poetry_2021-06-02_Osu.osr -O ~/replay.osr
-      - name: Render
+      - name: Download beatmap
         env:
           API_KEY: ${{ secrets.OSU_API_KEY }}
         run: |
           BEATMAPSET="$($GITHUB_WORKSPACE/replay-meta-list/target/release/replay-metadata ~/replay.osr | jq -r .beatmap_hash)"
           SET_ID="$(curl -qq "https://osu.ppy.sh/api/get_beatmaps?k=$API_KEY&h=$BEATMAPSET" | jq -r ".[0].beatmapset_id")"
-          wget "beatconnect.io/b/$SET_ID" -O ~/beatmap.osz
+          wget -q "beatconnect.io/b/$SET_ID" -O ~/beatmap.osz
           unzip ~/beatmap.osz -d ~/beatmap
+      - name: Render
+        run: |
           cd osr2mp4-core;
           git -c user.name=no -c user.email=no@no.com revert 963cf35775bd76b7f2ac323e021a2d1aa428b4cc --no-edit; cp ../*.py .; python main.py
           
