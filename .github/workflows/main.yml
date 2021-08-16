@@ -26,4 +26,13 @@ jobs:
         run: cd osr2mp4-core; cd osr2mp4/ImageProcess/Curves/libcurves/; python setup.py build_ext --inplace;
       - name: Prepare VideoProcess
         run: cd osr2mp4-core; cd osr2mp4/VideoProcess/FFmpegWriter/; python setup.py build_ext --inplace;
+      - name: Download skin
+        run: |
+          wget -q https://cdn.discordapp.com/attachments/876678911990308924/876679502405701722/Blueberry-v1.3.2-mod-normal-trails.osk -O /tmp/skin.zip;
+          unzip /tmp/skin.zip -d ~/skin
+      - name: Download replay
+        run: |
+          wget -q https://cdn.discordapp.com/attachments/876678911990308924/876678956529639454/Akane_Butterfly_-_Imperial_Circus_Dead_Decadence_-_Uta_Poetry_2021-06-02_Osu.osr -O ~/replay.osr
+          
+        
           
