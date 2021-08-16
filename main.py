@@ -1,7 +1,7 @@
 import os
-from osr2mp4.VideoProcess.DiskUtils import convert_tomp4
+from .osr2mp4.VideoProcess.DiskUtils import convert_tomp4
 import time
-from osr2mp4.osr2mp4 import Osr2mp4
+from .osr2mp4.osr2mp4 import Osr2mp4
 
 
 def main():
