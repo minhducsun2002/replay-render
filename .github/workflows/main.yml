@@ -41,7 +41,7 @@ jobs:
           unzip ~/beatmap.osz -d ~/Songs/beatmap
       - name: Render
         run: |
-          Xvfb :1
+          Xvfb :1 & 
           export DISPLAY=:1
           wget https://github.com/Wieku/danser-go/releases/download/0.5.2/danser-0.5.2-linux.zip -O danser.zip
           unzip danser.zip;
