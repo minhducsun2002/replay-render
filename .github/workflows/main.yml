@@ -55,7 +55,7 @@ jobs:
           mv settings2.json settings.json
           echo "\`\`\`$(jq . /tmp/metadata.json | jq -Rs . | cut -c 2- | rev | cut -c 2- | rev)\`\`\`" > file.json
           
-          ./discord.sh --webhook-url="$WEBHOOK" --text "Rendering started!\nMetadata:$(cat file.json)\nSee $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID."
+          ./discord.sh --webhook-url="$WEBHOOK" --text "Rendering started!\nMetadata :$(cat file.json)\nSee $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID."
           ./danser -record -replay ~/replay.osr
           ./discord.sh --webhook-url="$WEBHOOK" --text "Rendering is done! See $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID."
           mv video/danser*.mp4 video.mp4
