@@ -65,6 +65,6 @@ jobs:
           # Artifact name
           name: video # optional, default is artifact
           # A file, directory or wildcard pattern that describes what to upload
-          path: video.mp4
+          path: danser/video.mp4
           # The desired behavior if no files are found using the provided path.
           
