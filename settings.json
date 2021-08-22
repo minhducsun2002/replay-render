@@ -70,7 +70,10 @@
 	},
 	"Skin": {
 		"CurrentSkin": "blueberry",
-		"UseColorsFromSkin": true
+		"Cursor": {
+			"UseSkinCursor": false,
+			"Scale": 0.90
+		}
 	},
 	"Cursor": {
 		"TrailStyle": 1,
