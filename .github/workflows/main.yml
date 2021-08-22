@@ -44,8 +44,6 @@ jobs:
         env:
           WEBHOOK: ${{ secrets.WEBHOOK }}
         run: |
-          wget -q https://github.com/ChaoticWeg/discord.sh/raw/master/discord.sh;
-          chmod +x discord.sh;
           Xvfb :1 & 
           export DISPLAY=:1
           wget -q https://github.com/Wieku/danser-go/releases/download/0.5.2/danser-0.5.2-linux.zip -O danser.zip
@@ -55,6 +53,8 @@ jobs:
           mv ../settings.json settings.json
           echo "\`\`\`$(jq . /tmp/metadata.json | jq -Rs . | cut -c 2- | rev | cut -c 2- | rev)\`\`\`" > file.json
           
+          wget -q https://github.com/ChaoticWeg/discord.sh/raw/master/discord.sh;
+          chmod +x discord.sh;
           ./discord.sh --webhook-url="$WEBHOOK" --text "Rendering started!\nMetadata :$(cat file.json)\nSee $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID."
           ./danser -record -replay ~/replay.osr
           ./discord.sh --webhook-url="$WEBHOOK" --text "Rendering is done! See $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID."
