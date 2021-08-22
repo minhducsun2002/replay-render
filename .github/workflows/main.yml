@@ -54,6 +54,7 @@ jobs:
           mv settings2.json settings.json
           ./danser -record -replay ~/replay.osr
           ./discord.sh --webhook-url="$WEBHOOK" --text "Rendering is done! See $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID."
+          echo '== File listing =='; ls
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
