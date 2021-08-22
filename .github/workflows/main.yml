@@ -51,7 +51,7 @@ jobs:
           wget -q https://github.com/Wieku/danser-go/releases/download/0.5.2/danser-0.5.2-linux.zip -O danser.zip
           unzip danser.zip;
           chmod +x danser
-          jq '.General.OsuSongsDir = "/home/runner/Songs"' settings.json | jq '.General.OsuSkinsDir = "/home/runner/Skins"' > settings2.json
+          jq '.General.OsuSongsDir = "/home/runner/Songs"' settings.json | jq '.General.OsuSkinsDir = "/home/runner/Skins"' | jq '.Skin.CurrentSkin = "blueberry"' > settings2.json
           mv settings2.json settings.json
           echo "\`\`\`$(jq . /tmp/metadata.json | jq -Rs . | cut -c 2- | rev | cut -c 2- | rev)\`\`\`" > file.json
           
