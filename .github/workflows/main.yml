@@ -40,7 +40,11 @@ jobs:
           wget -q "beatconnect.io/b/$SET_ID" -O ~/beatmap.osz
           unzip ~/beatmap.osz -d ~/Songs/beatmap
       - name: Render
+        env:
+          WEBHOOK: ${{ secrets.WEBHOOK }}
         run: |
+          wget -q https://github.com/ChaoticWeg/discord.sh/raw/master/discord.sh;
+          chmod +x discord.sh;
           Xvfb :1 & 
           export DISPLAY=:1
           wget -q https://github.com/Wieku/danser-go/releases/download/0.5.2/danser-0.5.2-linux.zip -O danser.zip
@@ -49,5 +53,13 @@ jobs:
           jq '.General.OsuSongsDir = "/home/runner/Songs"' settings.json | jq '.General.OsuSkinsDir = "/home/runner/Skins"' > settings2.json
           mv settings2.json settings.json
           ./danser -record -replay ~/replay.osr
-        
+          ./discord.sh --webhook-url="$WEBHOOK" --text "Rendering is done! See $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID."
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          # Artifact name
+          name: video # optional, default is artifact
+          # A file, directory or wildcard pattern that describes what to upload
+          path: video/danser*.mp4
+          # The desired behavior if no files are found using the provided path.
           
