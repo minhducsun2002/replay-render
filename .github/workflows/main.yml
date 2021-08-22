@@ -35,7 +35,8 @@ jobs:
         env:
           API_KEY: ${{ secrets.OSU_API_KEY }}
         run: |
-          BEATMAPSET="$($GITHUB_WORKSPACE/replay-meta-list/target/release/replay-metadata ~/replay.osr | jq -r .beatmap_hash)"
+          $GITHUB_WORKSPACE/replay-meta-list/target/release/replay-metadata ~/replay.osr > /tmp/metadata.json
+          BEATMAPSET="$(cat /tmp/metadata.json | jq -r .beatmap_hash)"
           SET_ID="$(curl -qq "https://osu.ppy.sh/api/get_beatmaps?k=$API_KEY&h=$BEATMAPSET" | jq -r ".[0].beatmapset_id")"
           wget -q "beatconnect.io/b/$SET_ID" -O ~/beatmap.osz
           unzip ~/beatmap.osz -d ~/Songs/beatmap
@@ -52,15 +53,18 @@ jobs:
           chmod +x danser
           jq '.General.OsuSongsDir = "/home/runner/Songs"' settings.json | jq '.General.OsuSkinsDir = "/home/runner/Skins"' > settings2.json
           mv settings2.json settings.json
+          echo "\`\`\`$(jq . /tmp/metadata.json | jq -Rs . | cut -c 2- | rev | cut -c 2- | rev)\`\`\`" > file.json
+          
+          ./discord.sh --webhook-url="$WEBHOOK" --text "Rendering started!\nMetadata:$(cat file.json)\nSee $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID."
           ./danser -record -replay ~/replay.osr
           ./discord.sh --webhook-url="$WEBHOOK" --text "Rendering is done! See $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID."
-          echo '== File listing =='; ls
+          mv video/danser*.mp4 video.mp4
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
           # Artifact name
           name: video # optional, default is artifact
           # A file, directory or wildcard pattern that describes what to upload
-          path: video/danser*.mp4
+          path: video.mp4
           # The desired behavior if no files are found using the provided path.
           
