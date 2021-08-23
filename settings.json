@@ -37,7 +37,13 @@
 		"MouseButtonsDisabled": true
 	},
 	"Gameplay": {
-		"ShowHitErrorMeter": true,
+		"HitErrorMeter": {
+			"Show": true,
+			"Scale": 1,
+			"Opacity": 1,
+			"ShowUnstableRate": false,
+			"UnstableRateScale": 1.2
+		},
 		"HitErrorMeterOpacity": 1,
 		"HitErrorMeterScale": 1,
 		"ShowScore": true,
@@ -50,6 +56,7 @@
 		"KeyOverlayScale": 1,
 		"KeyOverlayOpacity": 1,
 		"ProgressBar": "Pie",
+		"ShowWarningArrows": false,
 		"Boundaries": {
 			"Enabled": false,
 			"BorderThickness": 1,
@@ -66,7 +73,13 @@
 				"Value": 0
 			},
 			"BackgroundOpacity": 0.5
-		}
+		},
+		"PPCounter": {
+			"Show": false,
+			"ShowInResults": false
+		},
+		"ShowResultsScreen": true,
+		"ResultsScreenTime": 5
 	},
 	"Skin": {
 		"CurrentSkin": "blueberry",
@@ -111,7 +124,8 @@
 		"TrailRemoveSpeed": 1,
 		"GlowEndScale": 0.4,
 		"InnerLengthMult": 0.9,
-		"AdditiveBlending": true
+		"AdditiveBlending": true,
+		"CursorRipples": true
 	},
 	"Objects": {
 		"DrawApproachCircles": true,
