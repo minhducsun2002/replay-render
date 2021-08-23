@@ -79,7 +79,10 @@
 			"ShowInResults": false
 		},
 		"ShowResultsScreen": true,
-		"ResultsScreenTime": 5
+		"ResultsScreenTime": 5,
+		"ScoreBoard": {
+			"Show": false
+		}
 	},
 	"Skin": {
 		"CurrentSkin": "blueberry",
