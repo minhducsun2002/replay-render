@@ -8,6 +8,15 @@ on:
     branches:
     - danser
   workflow_dispatch:
+    inputs:
+      skin:
+        description: 'Direct link to skin'
+        required: false
+        default: 'https://cdn.discordapp.com/attachments/876678911990308924/879340922918297670/Blueberry-v1.3.2-mod-normal-trails.osk'
+      replay:
+        description: 'Direct link to osr file'
+        required: false
+        default: 'https://cdn.discordapp.com/attachments/876678911990308924/876678956529639454/Akane_Butterfly_-_Imperial_Circus_Dead_Decadence_-_Uta_Poetry_2021-06-02_Osu.osr'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -26,11 +35,15 @@ jobs:
       - name: Download skin
         run: |
           mkdir ~/Skins ~/Songs
-          wget -q https://cdn.discordapp.com/attachments/876678911990308924/879340922918297670/Blueberry-v1.3.2-mod-normal-trails.osk -O /tmp/skin.zip;
+          wget -q "$SKIN_URL" -O /tmp/skin.zip;
           unzip /tmp/skin.zip -d ~/Skins/blueberry
+        env:
+          SKIN_URL:  ${{ github.event.inputs.skin }}
       - name: Download replay
         run: |
-          wget -q https://cdn.discordapp.com/attachments/876678911990308924/876678956529639454/Akane_Butterfly_-_Imperial_Circus_Dead_Decadence_-_Uta_Poetry_2021-06-02_Osu.osr -O ~/replay.osr
+          wget -q "$REPLAY_URL" -O ~/replay.osr
+        env:
+          REPLAY_URL:  ${{ github.event.inputs.replay }}
       - name: Download beatmap
         env:
           API_KEY: ${{ secrets.OSU_API_KEY }}
