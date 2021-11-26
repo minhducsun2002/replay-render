@@ -17,6 +17,14 @@ on:
         description: 'Direct link to osr file'
         required: false
         default: 'https://cdn.discordapp.com/attachments/876678911990308924/876678956529639454/Akane_Butterfly_-_Imperial_Circus_Dead_Decadence_-_Uta_Poetry_2021-06-02_Osu.osr'
+      beatmapOverwrite:
+        description: 'Direct link to osu file if custom map'
+        required: false
+        default: ''
+      beatmapsetOverwrite:
+        description: 'Beatmapset ID if custom map'
+        required: false
+        default: ''
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -47,12 +55,15 @@ jobs:
       - name: Download beatmap
         env:
           API_KEY: ${{ secrets.OSU_API_KEY }}
+          MAP_URL: ${{ github.event.inputs.beatmapOverwrite }}
+          SET_ID: ${{ github.event.inputs.beatmapsetOverwrite }}
         run: |
           $GITHUB_WORKSPACE/replay-meta-list/target/release/replay-metadata ~/replay.osr > /tmp/metadata.json
           BEATMAPSET="$(cat /tmp/metadata.json | jq -r .beatmap_hash)"
-          SET_ID="$(curl -qq "https://osu.ppy.sh/api/get_beatmaps?k=$API_KEY&h=$BEATMAPSET" | jq -r ".[0].beatmapset_id")"
+          [ -z "$SET_ID" ] && export SET_ID="$(curl -qq "https://osu.ppy.sh/api/get_beatmaps?k=$API_KEY&h=$BEATMAPSET" | jq -r ".[0].beatmapset_id")"
           wget -q "beatconnect.io/b/$SET_ID" -O ~/beatmap.osz
           unzip ~/beatmap.osz -d ~/Songs/beatmap
+          [ -z "$MAP_URL" ] && wget "$MAP_URL" -O ~/Songs/beatmap/custom.osr
       - name: Render
         env:
           WEBHOOK: ${{ secrets.WEBHOOK }}
