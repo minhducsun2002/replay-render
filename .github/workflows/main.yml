@@ -60,7 +60,7 @@ jobs:
         run: |
           $GITHUB_WORKSPACE/replay-meta-list/target/release/replay-metadata ~/replay.osr > /tmp/metadata.json
           BEATMAPSET="$(cat /tmp/metadata.json | jq -r .beatmap_hash)"
-          [ -z "$SET_ID" ] && export SET_ID="$(curl -qq "https://osu.ppy.sh/api/get_beatmaps?k=$API_KEY&h=$BEATMAPSET" | jq -r ".[0].beatmapset_id")"
+          [ -z "$SET_ID" ] && export SET_ID="$(curl -v "https://osu.ppy.sh/api/get_beatmaps?k=$API_KEY&h=$BEATMAPSET" | jq -r ".[0].beatmapset_id")"
           wget -q "beatconnect.io/b/$SET_ID" -O ~/beatmap.osz
           unzip -qq ~/beatmap.osz -d ~/Songs/beatmap
           [ -n "$MAP_URL" ] && wget -q "$MAP_URL" -O ~/Songs/beatmap/custom.osu
