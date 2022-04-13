@@ -242,6 +242,7 @@
 		},
 		"Background": {
 			"LoadStoryboards": false,
+			"LoadVideos": true,
 			"FlashToTheBeat": false,
 			"Dim": {
 				"Intro": 0,
