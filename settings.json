@@ -44,6 +44,9 @@
 			"ShowUnstableRate": false,
 			"UnstableRateScale": 1.2
 		},
+                "HitCounter": {
+                        "Show": false
+                },
 		"HitErrorMeterOpacity": 1,
 		"HitErrorMeterScale": 1,
 		"ShowScore": true,
