@@ -74,7 +74,8 @@ jobs:
           unzip danser.zip -d danser;
           cd danser;
           chmod +x danser
-          mv ../settings.json settings.json
+          mkdir settings
+          mv ../settings.json settings/default.json
           echo "\`\`\`$(jq . /tmp/metadata.json | jq -Rs . | cut -c 2- | rev | cut -c 2- | rev)\`\`\`" > file.json
           
           wget -q https://github.com/ChaoticWeg/discord.sh/raw/master/discord.sh;
