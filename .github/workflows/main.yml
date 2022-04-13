@@ -70,7 +70,7 @@ jobs:
         run: |
           Xvfb :1 & 
           export DISPLAY=:1
-          wget -q https://github.com/Wieku/danser-go/releases/download/0.5.2/danser-0.5.2-linux.zip -O danser.zip
+          wget -q https://github.com/Wieku/danser-go/releases/download/0.6.8/danser-0.6.8-linux.zip -O danser.zip
           unzip danser.zip -d danser;
           cd danser;
           chmod +x danser
