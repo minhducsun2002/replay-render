@@ -245,7 +245,7 @@
 			"FlashToTheBeat": false,
 			"Dim": {
 				"Intro": 0,
-				"Normal": 0.97,
+				"Normal": 0.87,
 				"Breaks": 0.5
 			},
 			"Parallax": {
