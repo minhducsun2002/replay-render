@@ -25,6 +25,10 @@ on:
         description: 'Beatmapset ID if custom map'
         required: false
         default: ''
+      beatmapsetlinkOverwrite:
+        description: 'Beatmapset link if custom map'
+        required: false
+        default: ''
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -57,11 +61,12 @@ jobs:
           API_KEY: ${{ secrets.OSU_API_KEY }}
           MAP_URL: ${{ github.event.inputs.beatmapOverwrite }}
           SET_ID: ${{ github.event.inputs.beatmapsetOverwrite }}
+          OVERWRITE: ${{ github.event.inputs.beatmapsetlinkOverwrite }}
         run: |
           $GITHUB_WORKSPACE/replay-meta-list/target/release/replay-metadata ~/replay.osr > /tmp/metadata.json
           BEATMAPSET="$(cat /tmp/metadata.json | jq -r .beatmap_hash)"
           [ -z "$SET_ID" ] && export SET_ID="$(curl -qq "https://osu.ppy.sh/api/get_beatmaps?k=$API_KEY&h=$BEATMAPSET" | jq -r ".[0].beatmapset_id")"
-          wget -q "https://kitsu.moe/api/d/$SET_ID" -O ~/beatmap.osz
+          [ -z "$OVERWRITE" ] && wget -q "$OVERWRITE" -O ~/beatmap.osz || wget -q "https://kitsu.moe/api/d/$SET_ID" -O ~/beatmap.osz 
           unzip -q ~/beatmap.osz -d ~/Songs/beatmap
           [ -n "$MAP_URL" ] && wget -q "$MAP_URL" -O ~/Songs/beatmap/custom.osu || true
       - name: Render
