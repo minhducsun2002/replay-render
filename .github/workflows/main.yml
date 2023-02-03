@@ -75,10 +75,10 @@ jobs:
         run: |
           Xvfb :1 & 
           export DISPLAY=:1
-          wget -q https://github.com/Wieku/danser-go/releases/download/0.6.8/danser-0.6.8-linux.zip -O danser.zip
+          wget -q https://github.com/Wieku/danser-go/releases/download/0.8.4/danser-0.8.4-linux.zip -O danser.zip
           unzip danser.zip -d danser;
           cd danser;
-          chmod +x danser
+          chmod +x danser-cli
           mkdir settings
           mv ../settings.json settings/default.json
           echo "\`\`\`$(jq . /tmp/metadata.json | jq -Rs . | cut -c 2- | rev | cut -c 2- | rev)\`\`\`" > file.json
@@ -86,7 +86,7 @@ jobs:
           wget -q https://github.com/ChaoticWeg/discord.sh/raw/master/discord.sh;
           chmod +x discord.sh;
           ./discord.sh --webhook-url="$WEBHOOK" --text "Rendering started!\nMetadata :$(cat file.json)\nSee $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID."
-          ./danser -record -replay ~/replay.osr
+          ./danser-cli -record -replay ~/replay.osr
           ./discord.sh --webhook-url="$WEBHOOK" --text "Rendering is done! See $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID."
           mv videos/danser*.mp4 video.mp4
       - name: Upload a Build Artifact
