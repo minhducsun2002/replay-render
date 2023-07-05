@@ -38,63 +38,30 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.4
-      - name: Prepare replay metadata extractor
-        run: git clone https://github.com/minhducsun2002/replay-meta-list -b metadata; cd replay-meta-list; cargo build --release
       - name: Install deps
         run: |
           sudo apt-get -qq -o=Dpkg::Use-Pty=0 -y update;
           sudo apt-get -qq -o=Dpkg::Use-Pty=0 -y install ffmpeg libavcodec-dev libavutil-dev libavformat-dev libswresample-dev libswscale-dev;
-      - name: Download skin
-        run: |
-          mkdir ~/Skins ~/Songs
-          wget -q "$SKIN_URL" -O /tmp/skin.zip;
-          unzip /tmp/skin.zip -d ~/Skins/blueberry
-        env:
-          SKIN_URL:  ${{ github.event.inputs.skin }}
-      - name: Download replay
-        run: |
-          wget -q "$REPLAY_URL" -O ~/replay.osr
-        env:
-          REPLAY_URL:  ${{ github.event.inputs.replay }}
-      - name: Download beatmap
-        env:
-          API_KEY: ${{ secrets.OSU_API_KEY }}
-          MAP_URL: ${{ github.event.inputs.beatmapOverwrite }}
-          SET_ID: ${{ github.event.inputs.beatmapsetOverwrite }}
-          OVERWRITE: ${{ github.event.inputs.beatmapsetlinkOverwrite }}
-        run: |
-          $GITHUB_WORKSPACE/replay-meta-list/target/release/replay-metadata ~/replay.osr > /tmp/metadata.json
-          BEATMAPSET="$(cat /tmp/metadata.json | jq -r .beatmap_hash)"
-          [ -z "$SET_ID" ] && export SET_ID="$(curl -qq "https://osu.ppy.sh/api/get_beatmaps?k=$API_KEY&h=$BEATMAPSET" | jq -r ".[0].beatmapset_id")"
-          [ -z "$OVERWRITE" ] && wget -q "$OVERWRITE" -O ~/beatmap.osz || wget -q "https://kitsu.moe/api/d/$SET_ID" -O ~/beatmap.osz 
-          unzip -q ~/beatmap.osz -d ~/Songs/beatmap
-          [ -n "$MAP_URL" ] && wget -q "$MAP_URL" -O ~/Songs/beatmap/custom.osu || true
       - name: Render
         env:
-          WEBHOOK: ${{ secrets.WEBHOOK }}
+          WEBHOOK_URL: ${{ secrets.WEBHOOK }}
+          REPLAY_URL: ${{ github.event.inputs.replay }}
+          SET_ID: ${{ github.event.inputs.beatmapsetOverwrite }}
+          OVERWRITE_BEATMAPSET_LINK: ${{ github.event.inputs.beatmapsetlinkOverwrite }}
+          OVERWRITE_MAP_LINK: ${{ github.event.inputs.beatmapOverwrite }}
+          SKIN_URL: ${{ github.event.inputs.skin }}
         run: |
-          Xvfb :1 & 
+          Xvfb :1 &
           export DISPLAY=:1
-          wget -q https://github.com/Wieku/danser-go/releases/download/0.8.4/danser-0.8.4-linux.zip -O danser.zip
-          unzip danser.zip -d danser;
-          cd danser;
-          chmod +x danser-cli
-          mkdir settings
-          mv ../settings.json settings/default.json
-          echo "\`\`\`$(jq . /tmp/metadata.json | jq -Rs . | cut -c 2- | rev | cut -c 2- | rev)\`\`\`" > file.json
-          
-          wget -q https://github.com/ChaoticWeg/discord.sh/raw/master/discord.sh;
-          chmod +x discord.sh;
-          ./discord.sh --webhook-url="$WEBHOOK" --text "Rendering started!\nMetadata :$(cat file.json)\nSee $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID."
-          ./danser-cli -record -replay ~/replay.osr
-          ./discord.sh --webhook-url="$WEBHOOK" --text "Rendering is done! See $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID."
-          mv videos/danser*.mp4 video.mp4
+
+          NODE_ENV=development yarn;
+          yarn ts-node src/index.ts
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
           # Artifact name
           name: video # optional, default is artifact
           # A file, directory or wildcard pattern that describes what to upload
-          path: danser/video.mp4
+          path: work/video/video.mp4
           # The desired behavior if no files are found using the provided path.
-          
+
