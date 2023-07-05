@@ -44,6 +44,7 @@ jobs:
           sudo apt-get -qq -o=Dpkg::Use-Pty=0 -y install ffmpeg libavcodec-dev libavutil-dev libavformat-dev libswresample-dev libswscale-dev;
       - name: Render
         env:
+          API_KEY: ${{ secrets.OSU_API_KEY }}
           WEBHOOK_URL: ${{ secrets.WEBHOOK }}
           REPLAY_URL: ${{ github.event.inputs.replay }}
           SET_ID: ${{ github.event.inputs.beatmapsetOverwrite }}
