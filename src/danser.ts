@@ -48,8 +48,8 @@ export async function render(baseDir: string) {
     let binary = join(p, 'danser-cli');
     chmodSync(binary, 0o755);
     execFileSync(binary, ['-record', '-replay', getReplayPath(baseDir), '-out', "video"], {
-        stdio: ['ignore', 'inherit', 'inherit'],
-        cwd: p
+        stdio: ['inherit', 'inherit', 'inherit'],
+        cwd: p,
     });
 }
 

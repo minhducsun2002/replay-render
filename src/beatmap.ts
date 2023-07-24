@@ -24,7 +24,7 @@ export async function downloadBeatmapByHash(apiKey: string, beatmap_hash: string
 
 async function downloadBeatmapOnline(setId : number, baseDir: string) {
     console.log('Downloading beatmapset', setId)
-    return await downloadBeatmap('https://kitsu.moe/api/d/' + setId, baseDir);
+    return await downloadBeatmap('https://osu.direct/api/d/' + setId, baseDir);
 }
 
 async function downloadBeatmapCustom(mapUrl: string, baseDir: string) {
