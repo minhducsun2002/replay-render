@@ -34,7 +34,7 @@ export function getReplayPath(baseDir: string) {
 
 export async function parseReplay(path: string) {
     let p = readFileSync(path);
-    let r = await new Replay(p).deserialize();
+    let r = await new Replay(p).deserialize(false);
 
     return r;
 }

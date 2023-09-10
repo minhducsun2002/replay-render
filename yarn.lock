@@ -118,10 +118,10 @@
   resolved "https://registry.yarnpkg.com/@minhducsun2002/leb128/-/leb128-1.0.0.tgz#4663f3c40c0b5bf5771c4fa1cf48f644aa52a0d5"
   integrity sha512-eFrYUPDVHeuwWHluTG1kwNQUEUcFjVKYwPkU8z9DR1JH3AW7JtJsG9cRVGmwz809kKtGfwGJj58juCZxEvnI/g==
 
-"@minhducsun2002/node-osr-parser@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@minhducsun2002/node-osr-parser/-/node-osr-parser-0.0.3.tgz#717130fe3bbce09e58528c356b8d4a5dd1531240"
-  integrity sha512-2GFzd4bembcheTGU9tDL9zNFEHa59jUgw2oXtAQyyzFQMu1fthxIPvkmuPZpkxS+HcFt8BNhw62FWIM2A9+k1A==
+"@minhducsun2002/node-osr-parser@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@minhducsun2002/node-osr-parser/-/node-osr-parser-0.1.0.tgz#c27d4cae0f9d55b7a4f1ad6aa7e1e79b0e7f20ba"
+  integrity sha512-eBLs/FM+f93n/fG3EO1sJDVNBH7p3Lort99AhTpz+MW2pM9JQ8atzQ2kwFbRCKNRN6zz3Lk/gZE4NRfjv3kvhw==
   dependencies:
     "@minhducsun2002/leb128" "1.0.0"
     lzma "^2.3.2"
